@@ -26,8 +26,10 @@ app.use(contactsRouter);
 app.use(feedbackAdminRouter);
 app.use(userRouter);
 
+const env = process.env;
+
 mongoose
-    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@diplomaproject.bhvad90.mongodb.net/?retryWrites=true&w=majority`)
+    .connect(`mongodb+srv://${env.DB_USER}:${env.DB_PASSWORD}@diplomaproject.bhvad90.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => console.log('MongoBD connect'))
     .catch((err) => console.log(err, 'error'))
 
