@@ -58,7 +58,7 @@ const updUser = async (req, res) => {
         let user = await User.updateOne({"_id": req.params.id}, req.body)
         if (user?.matchedCount) {
             User
-                .findOne({"_id": id}).select("-password -__v")
+                .findOne({"_id": req.params.id}).select("-password -__v")
                 .then((u) => res.json(u))
                 .catch(err => console.error(err))
         }
