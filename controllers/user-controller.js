@@ -9,7 +9,7 @@ const getAllUsers = (req, res) => {
 const getSingleUser = (req, res) => {
     let id = req.params.id
     User
-        .findOne({"_id": id}).select("-__v")
+        .findOne({"_id": id}).select("-password -__v")
         .then((user) => res.json(user))
         .catch(err => console.error(err))
 }
@@ -29,7 +29,7 @@ const addUser = (req, res) => {
     if (!req.body) {
         res.json({"message": "Данные не отправлены на сервер"});
     }
-    if (!req.body.email || !req.body.login) {
+    if (!req.body.email && !req.body.login) {
         res.json({"message": "Пожалуйста заполните адрес электронной почты или логин"});
     }
     if (!req.body.password) {
@@ -40,11 +40,14 @@ const addUser = (req, res) => {
             if (user) {
                 res.json({"message": "Такой пользователь уже существует"});
             }
-            User(req.body).save()
+            new User(req.body).save()
                 .then(user => {
-                    console.log("omnomnom", user); 
-                    res.send("ok")
+                    let u = {...user};
+                    delete u.password;
+                    delete u.__v;
+                    res.json(u);
                 })
+                .catch(err => console.error(err))
         })
         .catch(err => console.error(err))
         
@@ -52,14 +55,18 @@ const addUser = (req, res) => {
 const updUser = (req, res) => {
     User.updateOne({"_id": req.params.id}, req.body)
     .then(user => {
-        console.log("tratata", user); 
-        res.send("ok")
+        if (user?.matchedCount) {
+            User
+                .findOne({"_id": id}).select("-password -__v")
+                .then((u) => res.json(u))
+                .catch(err => console.error(err))
+        }
     })
     .catch(err => console.error(err))
 }
 const delUser = (req, res) => {
     User.deleteOne({"_id": req.params.id})
-        .then((msg) => s.json({"message": "Пользователь успешно удален"}))
+        .then((msg) => res.json({"message": "Пользователь успешно удален"}))
         .catch(err => console.error(err))
 }
 
