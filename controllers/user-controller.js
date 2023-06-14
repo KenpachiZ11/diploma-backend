@@ -25,7 +25,7 @@ const auth = (req, res) => {
         .then((user) => res.json(user))
         .catch(err => console.error(err))
 }
-const addUser = (req, res) => {
+const addUser = async (req, res) => {
     if (!req.body) {
         res.json({"message": "Данные не отправлены на сервер"});
     }
@@ -35,11 +35,11 @@ const addUser = (req, res) => {
     if (!req.body.password) {
         res.json({"message": "Пожалуйста заполните пароль"});
     }
-    User.findOne({"email": req.body.email})
-        .then((user) => {
-            if (user) {
-                res.json({"message": "Такой пользователь уже существует"});
-            }
+    try {
+        let user = await User.findOne({"email": req.body.email})
+        if (user) {
+            res.json({"message": "Такой пользователь уже существует"});
+        } else {
             new User(req.body).save()
                 .then(user => {
                     let u = {...user};
@@ -48,21 +48,23 @@ const addUser = (req, res) => {
                     res.json(u);
                 })
                 .catch(err => console.error(err))
-        })
-        .catch(err => console.error(err))
-        
+        }
+    } catch(err) {
+        console.error(err)
+    }
 }
-const updUser = (req, res) => {
-    User.updateOne({"_id": req.params.id}, req.body)
-    .then(user => {
+const updUser = async (req, res) => {
+    try {
+        let user = await User.updateOne({"_id": req.params.id}, req.body)
         if (user?.matchedCount) {
             User
                 .findOne({"_id": id}).select("-password -__v")
                 .then((u) => res.json(u))
                 .catch(err => console.error(err))
         }
-    })
-    .catch(err => console.error(err))
+    } catch(err) {
+        console.error(err)
+    }
 }
 const delUser = (req, res) => {
     User.deleteOne({"_id": req.params.id})
