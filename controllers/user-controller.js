@@ -14,7 +14,7 @@ const getSingleUser = (req, res) => {
         .catch(err => console.error(err))
 }
 const auth = (req, res) => {
-    if (!req.body.email || !req.body.login) {
+    if (!req.body.email && !req.body.login) {
         res.json({"message": "Пожалуйста заполните адрес электронной почты или логин"});
     }
     if (!req.body.password) {
