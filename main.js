@@ -17,12 +17,14 @@ const formRouter = require('./routes/form-route.js');
 const aboutRouter = require('./routes/about-route.js');
 const contactsRouter = require('./routes/contacts-route.js');
 const feedbackAdminRouter = require('./routes/feedbackAdmin-route.js');
+const userRouter = require('./routes/user-route.js');
 
 app.use(homeRouter);
 app.use(formRouter);
 app.use(aboutRouter);
 app.use(contactsRouter);
 app.use(feedbackAdminRouter);
+app.use(userRouter);
 
 mongoose
     .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@diplomaproject.bhvad90.mongodb.net/?retryWrites=true&w=majority`)
