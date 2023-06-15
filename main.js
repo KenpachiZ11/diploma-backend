@@ -17,19 +17,18 @@ const formRouter = require('./routes/form-route.js');
 const aboutRouter = require('./routes/about-route.js');
 const contactsRouter = require('./routes/contacts-route.js');
 const feedbackAdminRouter = require('./routes/feedbackAdmin-route.js');
-const authRouter = require('./routes/auth-router.js');
-const orderOnEmail = require('./routes/order-route.js');
+const userRouter = require('./routes/user-route.js');
 
 app.use(homeRouter);
 app.use(formRouter);
 app.use(aboutRouter);
 app.use(contactsRouter);
 app.use(feedbackAdminRouter);
-app.use(authRouter);
-app.use(orderOnEmail);
+app.use(userRouter);
 
+const env = process.env;
 mongoose
-    .connect(`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@diplomaproject.bhvad90.mongodb.net/?retryWrites=true&w=majority`)
+    .connect(`mongodb+srv://${env.DB_USER}:${env.DB_PASSWORD}@diplomaproject.bhvad90.mongodb.net/?retryWrites=true&w=majority`)
     .then(() => console.log('MongoBD connect'))
     .catch((err) => console.log(err, 'error'))
 
