@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { orderToEmail, getOrder } = require('../controllers/order-controller.js');
 
-router.get('/id', getOrder);
-router.post('/id', orderToEmail);
+router.get('/about/id', getOrder);
+router.post('/about/id', orderToEmail);
 
 module.exports = router;
