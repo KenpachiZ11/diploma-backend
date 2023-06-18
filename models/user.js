@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     content: [String],
     status: {
         type: String,
-        default: "author"
+        default: "user"
     }
 });
 

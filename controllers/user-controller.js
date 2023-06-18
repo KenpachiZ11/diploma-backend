@@ -42,7 +42,7 @@ const addUser = async (req, res) => {
         } else {
             new User(req.body).save()
                 .then(user => {
-                    let u = {...user};
+                    let u = {...user._doc};
                     delete u.password;
                     delete u.__v;
                     res.json(u);
