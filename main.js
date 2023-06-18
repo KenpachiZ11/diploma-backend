@@ -4,7 +4,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const urlencodedParser = bodyParser.urlencoded({extended : true});
 const mongoose = require('mongoose');
-const cors = require("cors");
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT;
 
@@ -18,6 +18,7 @@ const aboutRouter = require('./routes/about-route.js');
 const contactsRouter = require('./routes/contacts-route.js');
 const feedbackAdminRouter = require('./routes/feedbackAdmin-route.js');
 const userRouter = require('./routes/user-route.js');
+const orderOnEmail = require('./routes/order-route.js');
 
 app.use(homeRouter);
 app.use(formRouter);
@@ -25,6 +26,7 @@ app.use(aboutRouter);
 app.use(contactsRouter);
 app.use(feedbackAdminRouter);
 app.use(userRouter);
+app.use(orderOnEmail);
 
 const env = process.env;
 mongoose
