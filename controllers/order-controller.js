@@ -15,8 +15,8 @@ const orderToEmail = (req, res) => {
         secure: true,
         pool: true,
         auth: {
-            user: 'username',
-            pass: 'password'
+            user: process.env.EMAIL,
+            pass: process.env.PASS_EMAIL
         }
     }));
 
