@@ -10,10 +10,10 @@ const orderToEmail = (req, res) => {
 
     let transporter = nodemailer.createTransport(smtpTransport({
         service: 'gmail',
-        host: 'smtp.example.com',
-        port: 465,
-        secure: true,
-        pool: true,
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false,
+        // pool: true,
         auth: {
             type: 'OAuth2',
             user: process.env.EMAIL,
