@@ -26,7 +26,7 @@ const orderToEmail = (req, res) => {
     }));
 
     let mailOptions = {
-        from: 'danek0011@gmail.ru',
+        from: 'danek0011@gmail.com',
         to: req.body.to,
         subject: req.body.subject,
         text: req.body.text,
