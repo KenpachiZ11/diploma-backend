@@ -14,7 +14,9 @@ const UserSchema = new Schema({
     login: String,
     name: String,
     description: String,
-    content: [String],
+    content: [
+        { type : mongoose.Schema.Types.ObjectId, ref : 'SendDataForm' }
+    ],
     status: {
         type: String,
         default: "user"

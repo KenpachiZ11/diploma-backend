@@ -11,7 +11,8 @@ const getFormData = async(req, res) => {
         author: req.body.author,
         title: req.body.title,
         description: req.body.description,
-        linkImage: req.body.linkImage
+        linkImage: req.body.linkImage,
+        userEmail: req.body.userEmail,
     });
 
     console.log(postFormDate, 'postFormDate/form-route.js');
